@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, flash, redirect, request, session
+from flask import Flask, render_template, url_for, flash, redirect, request, session, make_response
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from pymysql import escape_string as thwart
 from functools import wraps
+from datetime import datetime, timedelta
 import gc
 import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 from content import Content
@@ -144,6 +145,28 @@ def test():
     
     """
     return render_template("test.html", test = test)
+
+## Site Map
+
+@app.route("/sitemap.xml/", methods=["GET"])
+def sitemap():
+    try:
+        pages = []
+        week = (datetime.now() - timedelta(days = 7)).date().isoformat()
+        for rule in app.url_map.iter_rules():
+            pages.append(["http://104.248.120.233"+str(rule.rule), week])
+        
+        sitemap_xml = render_template("sitemap_template.xml", pages = pages)
+        response = make_response(sitemap_xml)
+        response.headers["Content-Type"] = "application/xml"
+        return response
+    
+    except Exception as e:
+            return(str(e))
+        
+@app.route("/robots.txt")
+def robots():
+    return("User-agent: \nDisallow /login \nDisallow /register")
 
 ## Error Handlers
 @app.errorhandler(404)
