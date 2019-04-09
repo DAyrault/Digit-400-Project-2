@@ -11,7 +11,7 @@
       <!-- FavIcon -->
       <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
       
-    <title>Digit 400</title>
+    <title>YAIS</title>
       
       <script>
           $('#myModal').on('shown.bs.modal', function () {
@@ -28,7 +28,13 @@
 
       gtag('config', 'UA-136604199-2');
     </script>
+      
+      <!-- Custome CSS -->
+      <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
 
+      <!-- Google Material Icons -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      
       
   </head>
   <body>
@@ -63,7 +69,7 @@
         <a class="navbar-brand" href="/">
             <img src="{{ url_for('static',filename='images/mainlogo.png') }}" width="50" class="d-inline-block align-top" alt="main logo for digit 400 site">
         </a>
-        <a class="navbar-brand" href="/">Digit 400</a>
+        <a class="navbar-brand" href="/">YAIS</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -81,7 +87,7 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">Login</a>
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="material-icons">all_out</i>Login</a>
                     </li>
                     {% endif %}
                 </ul>
