@@ -1,6 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Arvo|Noto+Sans');
+
 h1 {
     color: red;
-    font-family: fantasy;
+    /* font-family: fantasy; */
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h2 {
+    color: red;
+    /* font-family: fantasy; */
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h3 {
+    color: red;
+    /* font-family: fantasy; */
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h4 {
+    color: red;
+    /* font-family: fantasy; */
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#wordmark {
+    /* DIGIT 400 wordmark */
+}
+
+p {
+    
+    font-family: 'Arvo', serif;
 }
 
 .loop{

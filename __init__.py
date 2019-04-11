@@ -29,7 +29,6 @@ def login_required(f):
         else:
             flash("Please Login.")
             return redirect(url_for('login'))
-        return wrap
     return wrap
         
 APP_CONTENT = Content()
