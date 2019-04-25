@@ -8,16 +8,16 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-      <!-- FavIcon -->
-      <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <!-- FavIcon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
       
-    <title>Digit 400</title>
+    <title>YAIS</title>
       
-      <script>
-          $('#myModal').on('shown.bs.modal', function () {
-              $('#myInput').trigger('focus')
-          })
-      </script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+          $('#myInput').trigger('focus')
+        });
+    </script>
       
       <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136604199-2"></script>
@@ -29,20 +29,21 @@
       gtag('config', 'UA-136604199-2');
     </script>
       
-      <!-- Custome CSS -->
-      <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
+    <!-- Custome CSS -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
 
-      <!-- Google Material Icons -->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       
   </head>
   <body>
+      
       <!-- NavBar-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">
-            <img src="{{ url_for('static',filename='images/mainlogo.png') }}" width="50" class="d-inline-block align-top" alt="main logo for digit 400 site">
+            <img src="{{ url_for('static',filename='images/Logo.png') }}" width="50" class="d-inline-block align-top" alt="main logo for digit 400 site">
         </a>
-        <a id="wordmark" class="navbar-brand" href="/">YAIS</a>
+        <!-- <a id="wordmark" class="navbar-brand" href="/">YAIS</a> -->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -67,9 +68,7 @@
             </div>
         </nav><!-- End NavBar -->
       
-    <video muted autoplay="autoplay">
-        <source src="/static/videos/space_cats.mp4" type="video/mp4">
-    </video>
+    <img src="/static/images/compass4.jpg" width="1200px" height="720px" class="center">
       
       <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

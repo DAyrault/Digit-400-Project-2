@@ -6,6 +6,7 @@ from functools import wraps
 from datetime import datetime, timedelta
 import gc
 import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import pygal
 from werkzeug.utils import secure_filename
 from content import Content
 from db_connect import connection
@@ -28,7 +29,7 @@ def login_required(f):
             return f(*args, **kwargs)
         else:
             flash("Please Login.")
-            return redirect(url_for('login'))
+            return redirect(url_for('index'))
     return wrap
         
 APP_CONTENT = Content()
@@ -58,14 +59,23 @@ def index():
     except Exception as e:
         flash(e) # Remove for Production
         error = "Invalid Credentials, Try Again"
-        return render_template("main.html")
+        return render_template("main.html", error = error)
 
 @app.route("/dashboard/")
 @login_required
 def dashboard():
     try:
-        flash("This is a Flash notification!")
+        #flash("This is a Flash notification!")
         return render_template("dashboard.html", APP_CONTENT = APP_CONTENT)
+    except Exception as e:
+        return render_template("500.html", error = e)
+    
+@app.route("/about/")
+@login_required
+def about():
+    try:
+        #flash("This is a Flash notification!")
+        return render_template("about.html", APP_CONTENT = APP_CONTENT)
     except Exception as e:
         return render_template("500.html", error = e)
     
@@ -94,7 +104,7 @@ def login():
     except Exception as e:
         flash(e) # Remove for Production
         error = "Invalid Credentials, Try Again"
-    return render_template("login.html", error = error)
+        return render_template("login.html", error = error)
 
 @app.route("/logout/")
 @login_required
@@ -117,36 +127,52 @@ def register_page():
 #    c, conn = connection()
     try:
         form = RegistrationForm(request.form)
-        if request.method == "POST" and form.validate():
-            username = form.username.data
-            email = form.email.data
-            password = sha256_crypt.encrypt((str(form.password.data)))
+        if request.method == "POST":
+            if 'register' in request.form and form.validate():
+                username = form.username.data
+                email = form.email.data
+                password = sha256_crypt.encrypt((str(form.password.data)))
+
+                c, conn = connection()
+
+                x = c.execute("SELECT * FROM users WHERE username = ('{0}')".format((thwart(username))))
+
+                if int(x) > 0:
+                    flash("Username is already taken.")
+                    return render_template("register.html", form = form)
+                else:
+                    c.execute("INSERT INTO users (username,password,email,tracking) VALUES ('{0}','{1}','{2}','{3}')".format(thwart(username),thwart(password),thwart(email),thwart("/dashboard/")))
+
+                    conn.commit()
+                    flash("Thanks for Registering")
+                    conn.close()
+                    gc.collect()
+
+                    session['logged_in'] = True
+                    session['username'] = username
+
+                    return redirect(url_for('dashboard'))
+
+            if 'login' in request.form:
+                c, conn = connection() 
+                data = c.execute("SELECT * FROM users WHERE username = ('{0}')".format(thwart(request.form['username'])))
             
-            c, conn = connection()
-            
-            x = c.execute("SELECT * FROM users WHERE username = ('{0}')".format((thwart(username))))
-            
-            if int(x) > 0:
-                flash("Username is already taken.")
-                return render_template("register.html", form = form)
-            else:
-                c.execute("INSERT INTO users (username,password,email,tracking) VALUES ('{0}','{1}','{2}','{3}')".format(thwart(username),thwart(password),thwart(email),thwart("/dashboard/")))
+                data = c.fetchone()[2]
                 
-                conn.commit()
-                flash("Thanks for Registering")
-                conn.close()
-                gc.collect()
-                
-                session['logged_in'] = True
-                session['username'] = username
-                
-                return redirect(url_for('dashboard'))
+                if sha256_crypt.verify(request.form["password"],data):
+                    session['logged_in'] =True
+                    session['username'] = request.form['username']
+                    
+                    flash("You are now logged in "+session['username']+"!")
+                    return redirect(url_for("dashboard"))
+                else:
+                    error = "Invalid credentials, try again."
+
         return render_template("register.html", form = form)
-
+            
     except Exception as e:
-        return(str(e)) #remember to remove, for debugging only
-#    return("Connected")
-
+        return(str(e)) # remember to remove! For debugging only!
+    
 @app.route("/test/")
 def test():
     """
@@ -167,7 +193,7 @@ def welcome_to_jinja():
         
         output = my_function()
         
-        return render_template("templating_demo.html", output = output,)
+        return render_template("templating_demo.html", output = output)
     except Exception as e:
         return str(e) #remove for production
     
@@ -209,7 +235,8 @@ def sitemap():
         pages = []
         week = (datetime.now() - timedelta(days = 7)).date().isoformat()
         for rule in app.url_map.iter_rules():
-            pages.append(["http://104.248.120.233"+str(rule.rule), week])
+            if "GET" in rule.methods and len(rule.arguments) == 0:
+                pages.append(["http://104.248.120.233"+str(rule.rule), week])
         
         sitemap_xml = render_template("sitemap_template.xml", pages = pages)
         response = make_response(sitemap_xml)
@@ -217,11 +244,47 @@ def sitemap():
         return response
     
     except Exception as e:
-            return(str(e)) # remove for production
+        return(str(e)) # remove for production
         
 @app.route("/robots.txt")
 def robots():
     return("User-agent: \nDisallow /login \nDisallow /register")
+
+@app.route("/search/")
+@login_required
+def search():
+    try:
+        #flash("This is a Flash notification!")
+        return render_template("search.html", APP_CONTENT = APP_CONTENT)
+    except Exception as e:
+        return render_template("500.html", error = e)
+    
+@app.route('/pygalexample/')
+def pygalexample():
+	try:
+		graph = pygal.Line()
+		graph.title = '% Change Coolness of programming languages over time.'
+		graph.x_labels = ['2011','2012','2013','2014','2015','2016']
+		graph.add('Python',  [15, 31, 89, 200, 356, 900])
+		graph.add('Java',    [15, 45, 76, 80,  91,  95])
+		graph.add('C++',     [5,  51, 54, 102, 150, 201])
+		graph.add('All others combined!',  [5, 15, 21, 55, 92, 105])
+		graph_data = graph.render_data_uri()
+		return render_template("graphing.html", graph_data = graph_data)
+	except Exception as e:
+		return(str(e))
+    
+@app.route('/TheGreatDepression/')
+def TheGreatDepression():
+	try:
+		graph = pygal.Pie()
+		graph.title = 'Source Reviews for The Great Depression'
+		graph.add('Good Sources', 80.5)
+		graph.add('Bad Sources', 19.5)
+		graph_data = graph.render_data_uri()
+		return render_template("TheGreatDepression.html", graph_data = graph_data)
+	except Exception as e:
+		return(str(e))
 
 ## Error Handlers
 @app.errorhandler(404)

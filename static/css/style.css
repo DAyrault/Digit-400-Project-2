@@ -40,3 +40,10 @@ p {
 #replace{
     color: #961548;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
