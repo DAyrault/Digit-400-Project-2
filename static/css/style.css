@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Arvo|Noto+Sans');
 
 h1 {
-    color: red;
+    color: lightyellow;
     /* font-family: fantasy; */
     font-family: 'Noto Sans', sans-serif;
 }
 
 h2 {
-    color: red;
+    color: lightyellow;
     /* font-family: fantasy; */
     font-family: 'Noto Sans', sans-serif;
 }
 
 h3 {
-    color: red;
+    color: lightyellow;
     /* font-family: fantasy; */
     font-family: 'Noto Sans', sans-serif;
 }
 
 h4 {
-    color: red;
+    color: lightyellow;
     /* font-family: fantasy; */
     font-family: 'Noto Sans', sans-serif;
 }
@@ -34,11 +34,11 @@ p {
 }
 
 .loop{
-    color: #707070;
+    color: lightyellow;
 }
 
 #replace{
-    color: #961548;
+    color:lightyellow;
 }
 
 .center {
@@ -46,4 +46,45 @@ p {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+body{
+    text-decoration-color: lightyellow;
+    background-color: dimgrey;
+    /* The image used */
+    background-image: url("/static/images/TheGreatDepression.jpg");
+    
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header{
+    text-decoration-color: lightyellow;
+    background-color: dimgrey;
+}
+
+.bg-image {
+  /* The image used */
+  background-image: url("/static/images/TheGreatDepression.jpg");
+
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#Body{
+    background-color: darkgrey;
 }

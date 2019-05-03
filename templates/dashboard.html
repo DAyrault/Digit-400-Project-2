@@ -3,19 +3,25 @@
 {% block body %}
 
     <!-- Nav TAbs -->
+<!--
     <ul class="nav nav-tabs" id="myTab" role="tablist">
      <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
      </li>
+-->
+<!--
      <li class="nav-item">
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
      </li>
+-->
+<!--
      <li class="nav-item">
         <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="false">Search</a>
      </li>
      <li class="nav-item">
         <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a>
      </li>
+-->
      <!-- <li class="nav-item">
         <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">About</a>
      </li> -->
@@ -27,8 +33,8 @@
             <div class="card-deck">
             {% for i in APP_CONTENT["Home"] %}
             
-            <div class="card" style="width: 18rem;">
-              <img src="/static/images/compass3.jpg" class="card-img-top" alt="...">
+            <div class="card text-white bg-dark mb-3">
+              <img src="/static/images/Paper.png" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">{{i[0]}}</h5>
                 <p class="card-text">{{i[2]}}</p>
@@ -39,6 +45,7 @@
             {% endfor %}
             </div>
         </div>
+<!--
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             
             <div class="card-deck">
@@ -54,6 +61,8 @@
             {% endfor %}
             </div>
         </div>
+-->
+<!--
         <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
             
             <div class="card-deck">
@@ -84,6 +93,7 @@
             {% endfor %}
             </div>
         </div>
+-->
     </div><!-- End Tab Content -->
 
 {% endblock %}
