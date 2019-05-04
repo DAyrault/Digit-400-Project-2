@@ -279,10 +279,15 @@ def TheGreatDepression():
 	try:
 		graph = pygal.Pie()
 		graph.title = 'Source Reviews for The Great Depression'
-		graph.add('Good Sources', 80.5)
-		graph.add('Bad Sources', 19.5)
+		graph.add('Bad Sources', 6)
+		graph.add('Good Sources', 13)
 		graph_data = graph.render_data_uri()
 		return render_template("TheGreatDepression.html", graph_data = graph_data)
+        #pie_chart = pygal.Pie()
+        #pie_chart.title = 'The Great Depression Source 1'
+        #pie_chart.add('Bad Source', 6)
+        #pie_chart.add('Good Source', 13)
+        #pie_chart.render_to_file('/static/images/TGDOne.svg')
 	except Exception as e:
 		return(str(e))
 
