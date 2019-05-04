@@ -173,6 +173,41 @@ def register_page():
     except Exception as e:
         return(str(e)) # remember to remove! For debugging only!
     
+class SourcesForm(Form):
+    articletitle = TextField("Article Title", [validators.Length(min=4, max=30)])
+    titleofcontainer = TextField("Title of Container", [validators.Length(min=6, max=20)])
+    contributor = TextField("Contributor", [validators.Length(min=4, max=30)])
+    publisher = TextField("Publisher", [validators.Length(min=6, max=20)])
+    location = TextField("Location", [validators.Length(min=6, max=25)])
+    
+@app.route('/sources/', methods=["GET", "POST"])
+def sources():
+    try:
+        #c, conn = connection()
+        form = SourcesForm(request.form)
+        if request.method == "POST" and form.validate():
+            articletitle = form.articletitle.data
+            titleofcontainer = form.titleofcontainer.data
+            contributor = form.contributor.data
+            publisher = form.publisher.data
+            location = form.location.data
+            
+            if int(x) > 0:
+                flash("Article already Included")
+                return render_template("sources.html", form = form)
+            else:
+                c.execute("INSERT INTO users (articletitle,titleofcontainer,contributor,publisher,location) VALUES ('{0}','{2}','{3}','{6}','{7}')".format(thwart(articletitle),thwart(titleofcontainer),thwart(contributor),thwart(publisher),thwart(location)))  
+                
+            conn.commit()
+            flash("Thanks for Adding!")
+            conn.close()
+            gc.collect()
+            
+        return render_template("sources.html")
+                    
+    except Exception as e:
+        return(str(e))
+    
 @app.route("/test/")
 def test():
     """
