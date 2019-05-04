@@ -57,7 +57,6 @@ def index():
         return render_template("main.html", error = error)
     
     except Exception as e:
-        flash(e) # Remove for Production
         error = "Invalid Credentials, Try Again"
         return render_template("main.html", error = error)
 
@@ -102,7 +101,6 @@ def login():
         return render_template("login.html", error = error)
     
     except Exception as e:
-        flash(e) # Remove for Production
         error = "Invalid Credentials, Try Again"
         return render_template("login.html", error = error)
 
@@ -171,7 +169,7 @@ def register_page():
         return render_template("register.html", form = form)
             
     except Exception as e:
-        return(str(e)) # remember to remove! For debugging only!
+        return "ok"
     
 class SourcesForm(Form):
     articletitle = TextField("Article Title", [validators.Length(min=4, max=30)])
@@ -206,7 +204,7 @@ def sources():
         return render_template("sources.html")
                     
     except Exception as e:
-        return(str(e))
+        return "ok"
     
 @app.route("/test/")
 def test():
@@ -230,7 +228,7 @@ def welcome_to_jinja():
         
         return render_template("templating_demo.html", output = output)
     except Exception as e:
-        return str(e) #remove for production
+        return "ok"
     
 @app.route("/uploads/", methods=["GET","POST"])
 @login_required
@@ -252,7 +250,7 @@ def upload_file():
                 return render_template('uploads.html', filename = filename)
         return render_template("uploads.html")
     except Exception as e:
-        return str(e) # remove for production
+        return "ok"
     
 @app.route("/download/")
 @login_required
@@ -307,7 +305,7 @@ def pygalexample():
 		graph_data = graph.render_data_uri()
 		return render_template("graphing.html", graph_data = graph_data)
 	except Exception as e:
-		return(str(e))
+		return "ok"
     
 @app.route('/TheGreatDepression/')
 def TheGreatDepression():
