@@ -277,12 +277,12 @@ def pygalexample():
 @app.route('/TheGreatDepression/')
 def TheGreatDepression():
 	try:
-		graph = pygal.Pie()
-		graph.title = 'Source Reviews for The Great Depression'
-		graph.add('Bad Sources', 6)
-		graph.add('Good Sources', 13)
-		graph_data = graph.render_data_uri()
-		return render_template("TheGreatDepression.html", graph_data = graph_data)
+		pie_chart = pygal.Pie(width=500, height=400, explicit_size=True)
+		pie_chart.title = 'Source Reviews for The Great Depression'
+		pie_chart.add('Bad Sources', 6)
+		pie_chart.add('Good Sources', 13)
+		chart = pie_chart.render(is_unicode=True)
+		return render_template("TheGreatDepression.html", chart=chart)
         #pie_chart = pygal.Pie()
         #pie_chart.title = 'The Great Depression Source 1'
         #pie_chart.add('Bad Source', 6)
@@ -291,7 +291,15 @@ def TheGreatDepression():
 	except Exception as e:
 		return(str(e))
 
-## Error Handlers
+    #    def test():
+#        bar_chart = pygal.HorizontalStackedBar()
+#        bar_chart.title = "Remarquable sequences"
+#        bar_chart.x_labels = map(str, range(11))
+#        bar_chart.add('Fibonacci', [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
+#        bar_chart.add('Padovan', [1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12]) 
+#        chart = bar_chart.render(is_unicode=True)
+#        return render_template('test.html', chart=chart )
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html")
@@ -305,5 +313,5 @@ def server_error(e):
     return render_template("500.html", error = e)
 
 if __name__ == "__main__":
-	app.run(debug=True) # should be turned off/False for production
+	app.run(debug=False) # should be turned off/False for production
 

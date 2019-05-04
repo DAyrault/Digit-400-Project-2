@@ -3,12 +3,12 @@
 {% block body %}
 
 <body>
-    <div class="container">
-        <h4>Register</h4>
+    <div id="Body" class="container">
+        <h4 id="Body">Register</h4>
         <br>
         {% from "formhelpers.html" import render_field %}
         
-        <form method="post" action="/register/">
+        <form id="Body" method="post" action="/register/">
         <dl>    
             {{render_field(form.username)}}
             {{render_field(form.email)}}
@@ -18,9 +18,9 @@
             
             <p><input type="submit" value=Register></p>
             
-            {% if error %}
+            <!--{% if error %}
                 <p class="error"><strong>Error: </strong>{{error}}</p>
-            {% endif %}
+            {% endif %}-->
             
         </dl>    
         </form>
